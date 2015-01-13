@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @message.title %></h2>
+<div>
+	<%= @message.content %>
+</div>
+<hr></hr>
+<h2>Responds</h2>
+
+<% @message.responds.each do |r| %>
+<h3><%= r.title %></h3>
+<div>
+	<%= r.content %>
+</div>
+<% end %>
+
+
+<%= form_for [@message,@respond], url: message_responds_path(@message) do |f| -%>
+  <div>
+  	Title:
+  	<%= f.text_field :title %>
+  </div>
+  <div>
+  	Content
+  	<%= f.text_area :content %>
+  </div>
+  <div>
+  	<%= f.submit %>
+  </div>
+<% end -%>
+<%= link_to 'Edit', edit_message_path(@message) %> |
+<%= link_to 'Back', messages_path %>

@@ -1,0 +1,43 @@
+
+<%= link_to 'New Message', new_message_path %>&nbsp;||&nbsp;
+<% if current_user.present? %>
+  <%= link_to 'Logout', destroy_user_session_path, :method => :delete  %>
+<% else %>
+  <%= link_to('Login', new_user_session_path) %>
+<% end %>
+<hr>
+
+<p id="notice"><%= notice %></p>
+
+
+<h1>All Messages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @messages.each do |message| %>
+      <tr>
+        <td><%= link_to message.title, message %></td>
+        <td>
+        <% if current_user.present? %>  
+        <%= link_to 'Edit', edit_message_path(message) %>
+        <% end %>
+        </td>
+        <td>
+        <% if current_user.try(:is_admin?) %>  
+        <%= link_to 'Destroy', message, method: :delete %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
